@@ -8,6 +8,9 @@ package valeryfonseca.proyecto1;
  *
  * @author Valery
  */
+import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
 public class OrdenarCelebracion extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(OrdenarCelebracion.class.getName());
@@ -15,10 +18,35 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
     /**
      * Creates new form OrdenarCelebracion
      */
+    ControlCelebraciones control;
     public OrdenarCelebracion(ControlCelebraciones control) {
         initComponents();
+        this.control = control;
+        actualizarTabla();
     }
-
+    
+    private void actualizarTabla() {
+        String[] columnas = {"ID", "País", "Fecha", "Descripción"};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Iterator<Celebracion> it = this.control.getLista().iterator();
+        while (it.hasNext()) {
+            Celebracion c = it.next();
+            Object[] fila = new Object[]{
+                c.getIdCelebracion(),
+                c.getFecha() == null ? "" : sdf.format(c.getFecha()),
+                c.getDescripcion(),
+                c.getPais()
+            };
+            modelo.addRow(fila);
+        }
+        tablaCelebraciones.setModel(modelo);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,6 +120,11 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
         jBtnInsercion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jBtnInsercion.setForeground(new java.awt.Color(255, 255, 255));
         jBtnInsercion.setText("Inserción");
+        jBtnInsercion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnInsercionActionPerformed(evt);
+            }
+        });
 
         jBtnMergeSort.setBackground(new java.awt.Color(0, 204, 0));
         jBtnMergeSort.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -105,11 +138,7 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
 
         tablaCelebraciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID de la celebración", "Fecha", "Descripción", "País"
@@ -195,6 +224,12 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jBtnCerrarActionPerformed
+
+    private void jBtnInsercionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInsercionActionPerformed
+        // TODO add your handling code here:
+        control.algoritmoInsercion(control.getLista());
+        actualizarTabla();
+    }//GEN-LAST:event_jBtnInsercionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCerrar;

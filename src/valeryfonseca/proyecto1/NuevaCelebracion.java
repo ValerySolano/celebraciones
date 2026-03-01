@@ -20,13 +20,13 @@ public class NuevaCelebracion extends javax.swing.JFrame {
      * Creates new form NuevaCelebracion
      */
     ControlCelebraciones control;
-
+    private int idCelebracion;
     public NuevaCelebracion(ControlCelebraciones control) {
         this.control = control;
         initComponents();
         jPanelMensaje.setVisible(false);
-        int newId = control.reserveId();
-        id.setText(String.valueOf(newId));
+        this.idCelebracion = control.reserveId();
+        id.setText(String.valueOf(this.idCelebracion));
     }
 
     /**
@@ -215,7 +215,8 @@ public class NuevaCelebracion extends javax.swing.JFrame {
                 jMensaje.setText("Celebración agregada exitosamente");
                 jPanelMensaje.setVisible(true);
                 jMensaje.setForeground(Color.GREEN);
-                id.setText(String.valueOf(control.reserveId()));
+                this.idCelebracion = control.reserveId();
+                id.setText(String.valueOf(this.idCelebracion));
                 pais.setText("");
                 fecha.setDate(null);
                 jareaDescripcion.setText("");

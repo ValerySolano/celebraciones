@@ -13,15 +13,17 @@ import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JOptionPane;
+import java.util.Iterator;
+
 public class VentanaPrincipal extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
 
     /**
      * Creates new form VentanaPrincipal
      */
     private ControlCelebraciones control = new ControlCelebraciones();
+
     public VentanaPrincipal() {
         initComponents();
         actualizarTabla();
@@ -189,11 +191,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevaCelebracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCelebracionActionPerformed
-                // TODO add your handling code here:
+        // TODO add your handling code here:
         NuevaCelebracion ventana = new NuevaCelebracion(this.control);
         jLabelMensajeError.setText("");
         ventana.addWindowListener(new WindowAdapter() {
-            @Override public void windowClosed(WindowEvent e) {
+            @Override
+            public void windowClosed(WindowEvent e) {
                 actualizarTabla();
             }
         });
@@ -204,13 +207,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int cantidadCelebraciones = control.cantidadCelebraciones();
         if (cantidadCelebraciones == 0) {
-        jLabelMensajeError.setText("No hay Paises para invertir.");
-        jLabelMensajeError.setVisible(true);
-        }
-        else {
+            jLabelMensajeError.setText("No hay Paises para invertir.");
+            jLabelMensajeError.setVisible(true);
+        } else {
 
-        PaisesInvertidosForm paisesInvertidosForm = new PaisesInvertidosForm(control);
-        paisesInvertidosForm.setVisible(true);
+            PaisesInvertidosForm paisesInvertidosForm = new PaisesInvertidosForm(control);
+            paisesInvertidosForm.setVisible(true);
         }
     }//GEN-LAST:event_jbtnInvertirPaisesActionPerformed
 
@@ -218,13 +220,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int cantidadCelebraciones = control.cantidadCelebraciones();
         if (cantidadCelebraciones == 0) {
-        jLabelMensajeError.setText("No hay celebraciones para ordenar.");
-        jLabelMensajeError.setVisible(true);
-        }
-        else {
+            jLabelMensajeError.setText("No hay celebraciones para ordenar.");
+            jLabelMensajeError.setVisible(true);
+        } else {
 
-        OrdenarCelebracion ordenarForm = new OrdenarCelebracion(control);
-        ordenarForm.setVisible(true);
+            OrdenarCelebracion ordenarForm = new OrdenarCelebracion(control);
+            ordenarForm.setVisible(true);
         }
     }//GEN-LAST:event_jbtnOrdenarActionPerformed
 
@@ -232,31 +233,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int cantidadCelebraciones = control.cantidadCelebraciones();
         if (cantidadCelebraciones == 0) {
-        jLabelMensajeError.setText("No hay celebraciones para buscar.");
-        jLabelMensajeError.setVisible(true);
-        }
-        else {
-        VentanaBusqueda ventanaBusqueda = new VentanaBusqueda(control);
+            jLabelMensajeError.setText("No hay celebraciones para buscar.");
+            jLabelMensajeError.setVisible(true);
+        } else {
+            VentanaBusqueda ventanaBusqueda = new VentanaBusqueda(control);
         }
     }//GEN-LAST:event_jbtnBuscarActionPerformed
 
-  private void actualizarTabla() {
-       String[] columnas = {"ID de la celebración", "Fecha", "Descripción", "País"};
-       DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
-           @Override public boolean isCellEditable(int row, int column) { return false; }
-       };
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-       for (Celebracion c : control.getLista()) {
-           Object[] fila = new Object[] {
-               c.getIdCelebracion(),
-               c.getFecha() == null ? "" : sdf.format(c.getFecha()),
-               c.getDescripcion(),
-               c.getPais()
-           };
-           modelo.addRow(fila);
-       }
-       tablaCelebraciones.setModel(modelo);
-   }
+    private void actualizarTabla() {
+        String[] columnas = {"ID de la celebración", "Fecha", "Descripción", "País"};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Iterator<Celebracion> it = control.getLista().iterator();
+        while (it.hasNext()) {
+            Celebracion c = it.next();
+            Object[] fila = new Object[]{
+                c.getIdCelebracion(),
+                c.getFecha() == null ? "" : sdf.format(c.getFecha()),
+                c.getDescripcion(),
+                c.getPais()
+            };
+            modelo.addRow(fila);
+        }
+        tablaCelebraciones.setModel(modelo);
+    }
+
     /**
      * @param args the command line arguments
      */
