@@ -31,4 +31,40 @@ public class ControlCelebraciones {
     public ArrayList<Celebracion> getLista() {
         return lista;
     }
+    public int cantidadCelebraciones() {
+        return lista.size();
+    }
+    public String validarCelebracion(Celebracion c) {
+        if (c.getPais() == null || c.getPais().isEmpty() || c.getPais().trim().isEmpty()) {
+            return "El país no puede estar vacío";
+        }
+        if (c.getFecha() == null) {
+            return "La fecha no puede estar vacía";
+        }
+        if (c.getDescripcion() == null || c.getDescripcion().isEmpty() || c.getDescripcion().trim().isEmpty()) {
+            return "La descripción no puede estar vacía";
+        }
+        return null;
+    }
+
+
+    public ArrayList<String> getPaisesInvertidos() {
+        ArrayList<String> paisesInvertidos = new ArrayList<>();
+        ArrayList<String> paisesSinDuplicados = new ArrayList<>();
+        for (Celebracion c : lista) {
+            String pais = c.getPais();
+            if (!paisesSinDuplicados.contains(pais)) {
+                paisesSinDuplicados.add(pais);
+                paisesInvertidos.add(invertirPais(pais));
+            }
+        }
+        return paisesInvertidos;
+    }
+    // Invertir pais recursivamente
+    public String invertirPais(String pais) {
+        if (pais == null || pais.isEmpty()) {
+            return pais;
+        }
+        return invertirPais(pais.substring(1)) + pais.charAt(0);
+    }
 }

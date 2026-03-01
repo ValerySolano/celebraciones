@@ -6,11 +6,12 @@ package valeryfonseca.proyecto1;
 // import java.util.Date; --- IGNORE ---
 
 import java.util.Date;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author Valery
  */
+import java.awt.Color;
 public class NuevaCelebracion extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(NuevaCelebracion.class.getName());
@@ -23,6 +24,7 @@ public class NuevaCelebracion extends javax.swing.JFrame {
     public NuevaCelebracion(ControlCelebraciones control) {
         this.control = control;
         initComponents();
+        jPanelMensaje.setVisible(false);
         int newId = control.reserveId();
         id.setText(String.valueOf(newId));
     }
@@ -37,8 +39,6 @@ public class NuevaCelebracion extends javax.swing.JFrame {
     private void initComponents() {
 
         jCalendar1 = new com.toedter.calendar.JCalendar();
-        jPanel1 = new javax.swing.JPanel();
-        btnGuardar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -50,33 +50,14 @@ public class NuevaCelebracion extends javax.swing.JFrame {
         jareaDescripcion = new javax.swing.JTextArea();
         fecha = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
+        jBtnCerrar = new javax.swing.JButton();
+        jPanelMensaje = new javax.swing.JPanel();
+        jBtnCerrarMensaje = new javax.swing.JButton();
+        jMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.setToolTipText("");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(131, Short.MAX_VALUE)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("ID:");
 
@@ -145,35 +126,71 @@ public class NuevaCelebracion extends javax.swing.JFrame {
 
         id.getAccessibleContext().setAccessibleName("id");
 
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 81, 625, -1));
+
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("Agregar celebración");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 183, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 64, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        btnGuardar.setBackground(new java.awt.Color(0, 204, 0));
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setText("Guardar");
+        btnGuardar.setToolTipText("");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 160, 40));
+
+        jBtnCerrar.setBackground(new java.awt.Color(255, 51, 51));
+        jBtnCerrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jBtnCerrar.setForeground(new java.awt.Color(255, 255, 255));
+        jBtnCerrar.setText("Cerrar");
+        jBtnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCerrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBtnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 160, 40));
+
+        jPanelMensaje.setBackground(new java.awt.Color(255, 255, 255));
+
+        jBtnCerrarMensaje.setBackground(new java.awt.Color(255, 102, 102));
+        jBtnCerrarMensaje.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jBtnCerrarMensaje.setText("X");
+        jBtnCerrarMensaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCerrarMensajeActionPerformed(evt);
+            }
+        });
+
+        jMensaje.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMensaje.setToolTipText("");
+
+        javax.swing.GroupLayout jPanelMensajeLayout = new javax.swing.GroupLayout(jPanelMensaje);
+        jPanelMensaje.setLayout(jPanelMensajeLayout);
+        jPanelMensajeLayout.setHorizontalGroup(
+            jPanelMensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMensajeLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121))
+                .addComponent(jMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnCerrarMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        jPanelMensajeLayout.setVerticalGroup(
+            jPanelMensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMensajeLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelMensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnCerrarMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        getContentPane().add(jPanelMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 480, 50));
 
         pack();
         setLocationRelativeTo(null);
@@ -181,36 +198,61 @@ public class NuevaCelebracion extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
-            ;
+            
             int idVal = Integer.parseInt(id.getText());
-            // Fecha esperada en formato ISO yyyy-MM-dd en el campo pais1
             Date nuevaFecha = fecha.getDate();
-            System.out.println("Fecha seleccionada: ");
-
             String descripcion = jareaDescripcion.getText();
             String paisVal = pais.getText();
             Celebracion nueva = new Celebracion(idVal, nuevaFecha, descripcion, paisVal);
-            control.addCelebracion(nueva);
-            javax.swing.JOptionPane.showMessageDialog(this, "Celebración guardada.");
-            this.dispose();
+            String validacion = control.validarCelebracion(nueva);
+            if (validacion != null) {
+                jMensaje.setText(validacion);
+                jMensaje.setForeground(Color.RED);
+                jPanelMensaje.setVisible(true);
+            }
+            else {
+                control.addCelebracion(nueva);
+                jMensaje.setText("Celebración agregada exitosamente");
+                jPanelMensaje.setVisible(true);
+                jMensaje.setForeground(Color.GREEN);
+                id.setText(String.valueOf(control.reserveId()));
+                pais.setText("");
+                fecha.setDate(null);
+                jareaDescripcion.setText("");
+            }
+           
         } catch (Exception ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void jBtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCerrarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jBtnCerrarActionPerformed
+
+    private void jBtnCerrarMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCerrarMensajeActionPerformed
+        // TODO add your handling code here:
+        jMensaje.setText("");
+        jPanelMensaje.setVisible(false);
+    }//GEN-LAST:event_jBtnCerrarMensajeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JTextField id;
+    private javax.swing.JButton jBtnCerrar;
+    public javax.swing.JButton jBtnCerrarMensaje;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
+    public javax.swing.JLabel jMensaje;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelMensaje;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jareaDescripcion;
     private javax.swing.JTextField pais;

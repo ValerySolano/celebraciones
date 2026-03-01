@@ -3,20 +3,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package valeryfonseca.proyecto1;
-
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 /**
  *
  * @author Valery
  */
-public class PaisesInvertir extends javax.swing.JFrame {
+public class PaisesInvertidosForm extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PaisesInvertir.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PaisesInvertidosForm.class.getName());
 
     /**
      * Creates new form PaisesInvertir
      */
-    public PaisesInvertir() {
+    ControlCelebraciones control;
+    public PaisesInvertidosForm(ControlCelebraciones control) {
+        this.control = control;
         initComponents();
+        cargarPaisesInvertidos();
+    }
+
+    public void cargarPaisesInvertidos() {
+        ArrayList<String> paisesInvertidos = control.getPaisesInvertidos();
+        DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        for (int i = 0; i < paisesInvertidos.size(); i++) {
+            String paisInvertido = paisesInvertidos.get(i);
+            model.addRow(new Object[]{i + 1, paisInvertido});
+        }
     }
 
     /**
@@ -35,7 +48,7 @@ public class PaisesInvertir extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -61,10 +74,7 @@ public class PaisesInvertir extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "#", "País Invertido"
@@ -94,6 +104,11 @@ public class PaisesInvertir extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Cerrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -140,30 +155,10 @@ public class PaisesInvertir extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new PaisesInvertir().setVisible(true));
-    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

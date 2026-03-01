@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 public class VentanaPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
@@ -35,6 +36,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jColorChooser1 = new javax.swing.JColorChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCelebraciones = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -46,6 +48,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jbtnOrdenar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabelMensajeError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -110,6 +113,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnNuevaCelebracion.setBackground(new java.awt.Color(91, 204, 111));
+        btnNuevaCelebracion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnNuevaCelebracion.setForeground(new java.awt.Color(255, 255, 255));
         btnNuevaCelebracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/valeryfonseca/proyecto1/add.png"))); // NOI18N
         btnNuevaCelebracion.setText("Nueva celebración");
         btnNuevaCelebracion.addActionListener(new java.awt.event.ActionListener() {
@@ -121,13 +127,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnNuevaCelebracion.getAccessibleContext().setAccessibleName("nuevaCelebración");
         btnNuevaCelebracion.getAccessibleContext().setAccessibleDescription("");
 
+        jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/valeryfonseca/proyecto1/search.png"))); // NOI18N
         jbtnBuscar.setText("Buscar y Editar");
+        jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnBuscarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jbtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 204, 45));
 
+        jbtnInvertirPaises.setIcon(new javax.swing.ImageIcon(getClass().getResource("/valeryfonseca/proyecto1/list.png"))); // NOI18N
         jbtnInvertirPaises.setText("Lista Paises Invertidos");
+        jbtnInvertirPaises.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnInvertirPaisesActionPerformed(evt);
+            }
+        });
         jPanel1.add(jbtnInvertirPaises, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 204, 52));
 
+        jbtnOrdenar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/valeryfonseca/proyecto1/sort.png"))); // NOI18N
         jbtnOrdenar.setText("Ordenar Celebraciones");
+        jbtnOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnOrdenarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jbtnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 204, 49));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 90, 220, 260));
@@ -151,10 +175,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, 220, 40));
+
+        jLabelMensajeError.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelMensajeError.setForeground(new java.awt.Color(255, 0, 0));
+        getContentPane().add(jLabelMensajeError, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 490, 30));
 
         pack();
         setLocationRelativeTo(null);
@@ -163,6 +191,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnNuevaCelebracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCelebracionActionPerformed
                 // TODO add your handling code here:
         NuevaCelebracion ventana = new NuevaCelebracion(this.control);
+        jLabelMensajeError.setText("");
         ventana.addWindowListener(new WindowAdapter() {
             @Override public void windowClosed(WindowEvent e) {
                 actualizarTabla();
@@ -171,8 +200,48 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_btnNuevaCelebracionActionPerformed
 
+    private void jbtnInvertirPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInvertirPaisesActionPerformed
+        // TODO add your handling code here:
+        int cantidadCelebraciones = control.cantidadCelebraciones();
+        if (cantidadCelebraciones == 0) {
+        jLabelMensajeError.setText("No hay Paises para invertir.");
+        jLabelMensajeError.setVisible(true);
+        }
+        else {
+
+        PaisesInvertidosForm paisesInvertidosForm = new PaisesInvertidosForm(control);
+        paisesInvertidosForm.setVisible(true);
+        }
+    }//GEN-LAST:event_jbtnInvertirPaisesActionPerformed
+
+    private void jbtnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOrdenarActionPerformed
+        // TODO add your handling code here:
+        int cantidadCelebraciones = control.cantidadCelebraciones();
+        if (cantidadCelebraciones == 0) {
+        jLabelMensajeError.setText("No hay celebraciones para ordenar.");
+        jLabelMensajeError.setVisible(true);
+        }
+        else {
+
+        OrdenarCelebracion ordenarForm = new OrdenarCelebracion(control);
+        ordenarForm.setVisible(true);
+        }
+    }//GEN-LAST:event_jbtnOrdenarActionPerformed
+
+    private void jbtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarActionPerformed
+        // TODO add your handling code here:
+        int cantidadCelebraciones = control.cantidadCelebraciones();
+        if (cantidadCelebraciones == 0) {
+        jLabelMensajeError.setText("No hay celebraciones para buscar.");
+        jLabelMensajeError.setVisible(true);
+        }
+        else {
+        VentanaBusqueda ventanaBusqueda = new VentanaBusqueda(control);
+        }
+    }//GEN-LAST:event_jbtnBuscarActionPerformed
+
   private void actualizarTabla() {
-       String[] columnas = {"ID de la celebración", "Fecha", "Descripción", "País", "Editar"};
+       String[] columnas = {"ID de la celebración", "Fecha", "Descripción", "País"};
        DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
            @Override public boolean isCellEditable(int row, int column) { return false; }
        };
@@ -215,7 +284,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNuevaCelebracion;
+    private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabelMensajeError;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
