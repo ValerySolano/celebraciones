@@ -44,9 +44,9 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
             Celebracion c = it.next();
             Object[] fila = new Object[]{
                 c.getIdCelebracion(),
+                c.getPais(),
                 c.getFecha() == null ? "" : sdf.format(c.getFecha()),
-                c.getDescripcion(),
-                c.getPais()
+                c.getDescripcion()
             };
             modelo.addRow(fila);
         }
@@ -147,14 +147,14 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID de la celebración", "Fecha", "Descripción", "País"
+                "ID de la celebración", "País", "Fecha", "Descripción"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -212,9 +212,9 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
                         .addComponent(jBtnInsercion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtnMergeSort)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(jBtnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
         );

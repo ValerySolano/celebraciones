@@ -75,14 +75,14 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID de la celebración", "Fecha", "Descripción", "País"
+                "ID de la celebración", "País", "Fecha", "Descripción"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
