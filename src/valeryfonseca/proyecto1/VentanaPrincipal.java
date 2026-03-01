@@ -9,6 +9,10 @@ package valeryfonseca.proyecto1;
  * @author Valery
  */
 import valeryfonseca.proyecto1.NuevaCelebracion;
+import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 public class VentanaPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
@@ -19,6 +23,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private ControlCelebraciones control = new ControlCelebraciones();
     public VentanaPrincipal() {
         initComponents();
+        actualizarTabla();
     }
 
     /**
@@ -30,102 +35,126 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        titulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCelebraciones = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        titulo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnNuevaCelebracion = new javax.swing.JButton();
-        btnBuscarCelebracion = new javax.swing.JButton();
+        jbtnBuscar = new javax.swing.JButton();
+        jbtnInvertirPaises = new javax.swing.JButton();
+        jbtnOrdenar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        titulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        titulo.setText("Listado de celebraciones");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaCelebraciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID de la celebración", "Fecha", "Descripción", "País", "Editar"
+                "ID de la celebración", "Fecha", "Descripción", "País"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(tablaCelebraciones);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 690, 280));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        titulo.setText("Celebraciones");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(392, Short.MAX_VALUE)
+                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(366, 366, 366))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(titulo)
+                .addGap(12, 12, 12))
+        );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 50));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNuevaCelebracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/valeryfonseca/proyecto1/add.png"))); // NOI18N
         btnNuevaCelebracion.setText("Nueva celebración");
         btnNuevaCelebracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevaCelebracionActionPerformed(evt);
             }
         });
-
-        btnBuscarCelebracion.setText("Buscar Celebración");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNuevaCelebracion, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(btnBuscarCelebracion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevaCelebracion)
-                    .addComponent(btnBuscarCelebracion))
-                .addContainerGap())
-        );
-
+        jPanel1.add(btnNuevaCelebracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 204, 52));
         btnNuevaCelebracion.getAccessibleContext().setAccessibleName("nuevaCelebración");
         btnNuevaCelebracion.getAccessibleContext().setAccessibleDescription("");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+        jbtnBuscar.setText("Buscar y Editar");
+        jPanel1.add(jbtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 204, 45));
+
+        jbtnInvertirPaises.setText("Lista Paises Invertidos");
+        jPanel1.add(jbtnInvertirPaises, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 204, 52));
+
+        jbtnOrdenar.setText("Ordenar Celebraciones");
+        jPanel1.add(jbtnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 204, 49));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 90, 220, 260));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Acciones");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(117, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(titulo)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, 220, 40));
 
         pack();
         setLocationRelativeTo(null);
@@ -134,9 +163,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnNuevaCelebracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCelebracionActionPerformed
                 // TODO add your handling code here:
         NuevaCelebracion ventana = new NuevaCelebracion(this.control);
+        ventana.addWindowListener(new WindowAdapter() {
+            @Override public void windowClosed(WindowEvent e) {
+                actualizarTabla();
+            }
+        });
         ventana.setVisible(true);
     }//GEN-LAST:event_btnNuevaCelebracionActionPerformed
 
+  private void actualizarTabla() {
+       String[] columnas = {"ID de la celebración", "Fecha", "Descripción", "País", "Editar"};
+       DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+           @Override public boolean isCellEditable(int row, int column) { return false; }
+       };
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       for (Celebracion c : control.getLista()) {
+           Object[] fila = new Object[] {
+               c.getIdCelebracion(),
+               c.getFecha() == null ? "" : sdf.format(c.getFecha()),
+               c.getDescripcion(),
+               c.getPais()
+           };
+           modelo.addRow(fila);
+       }
+       tablaCelebraciones.setModel(modelo);
+   }
     /**
      * @param args the command line arguments
      */
@@ -163,10 +214,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarCelebracion;
     private javax.swing.JButton btnNuevaCelebracion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtnBuscar;
+    private javax.swing.JButton jbtnInvertirPaises;
+    private javax.swing.JButton jbtnOrdenar;
     private javax.swing.JTable tablaCelebraciones;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
