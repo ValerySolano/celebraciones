@@ -16,6 +16,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
+    private ControlCelebraciones control = new ControlCelebraciones();
     public VentanaPrincipal() {
         initComponents();
     }
@@ -132,7 +133,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnNuevaCelebracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCelebracionActionPerformed
                 // TODO add your handling code here:
-        NuevaCelebracion ventana = new NuevaCelebracion();
+        NuevaCelebracion ventana = new NuevaCelebracion(this.control);
         ventana.setVisible(true);
     }//GEN-LAST:event_btnNuevaCelebracionActionPerformed
 

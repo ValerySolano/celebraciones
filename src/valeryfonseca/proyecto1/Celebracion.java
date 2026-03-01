@@ -4,7 +4,7 @@
  */
 package valeryfonseca.proyecto1;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -13,11 +13,11 @@ import java.time.LocalDate;
 public class Celebracion {
 
     private int idCelebracion;
-    private LocalDate fecha;
+    private Date fecha;
     private String descripcion;
     private String pais;
     
-    public Celebracion(int idCelebracion, LocalDate fecha, String descripcion, String pais) {
+    public Celebracion(int idCelebracion, Date fecha, String descripcion, String pais) {
         this.idCelebracion = idCelebracion;
         this.fecha = fecha;
         this.descripcion = descripcion;
@@ -29,7 +29,7 @@ public class Celebracion {
         this.idCelebracion = idCelebracion;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -46,7 +46,7 @@ public class Celebracion {
         return idCelebracion;
     }
 
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 

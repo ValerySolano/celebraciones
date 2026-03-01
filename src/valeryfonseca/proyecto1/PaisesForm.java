@@ -8,14 +8,14 @@ package valeryfonseca.proyecto1;
  *
  * @author Valery
  */
-public class listadoPaises extends javax.swing.JFrame {
+public class PaisesForm extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(listadoPaises.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PaisesForm.class.getName());
 
     /**
      * Creates new form listadoPaises
      */
-    public listadoPaises() {
+    public PaisesForm() {
         initComponents();
     }
 
@@ -157,7 +157,7 @@ public class listadoPaises extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new listadoPaises().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new PaisesForm().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
