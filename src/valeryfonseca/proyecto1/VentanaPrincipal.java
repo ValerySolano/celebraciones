@@ -8,7 +8,7 @@ package valeryfonseca.proyecto1;
  *
  * @author Valery
  */
-import valeryfonseca.proyecto1.NuevaCelebracion;
+import valeryfonseca.proyecto1.UpsertCelebracion;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
 import java.awt.event.WindowAdapter;
@@ -192,15 +192,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnNuevaCelebracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCelebracionActionPerformed
         // TODO add your handling code here:
-        NuevaCelebracion ventana = new NuevaCelebracion(this.control);
+        UpsertCelebracion ventana = new UpsertCelebracion(this.control, null);
         jLabelMensajeError.setText("");
+        ventana.setVisible(true);
         ventana.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 actualizarTabla();
             }
         });
-        ventana.setVisible(true);
     }//GEN-LAST:event_btnNuevaCelebracionActionPerformed
 
     private void jbtnInvertirPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInvertirPaisesActionPerformed
@@ -237,6 +237,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             jLabelMensajeError.setVisible(true);
         } else {
             VentanaBusqueda ventanaBusqueda = new VentanaBusqueda(control);
+            ventanaBusqueda.setVisible(true);
+            ventanaBusqueda.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    actualizarTabla();
+                }
+            });
         }
     }//GEN-LAST:event_jbtnBuscarActionPerformed
 

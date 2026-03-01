@@ -16,7 +16,7 @@ public class Celebracion {
     private Date fecha;
     private String descripcion;
     private String pais;
-    
+
     public Celebracion(int idCelebracion, Date fecha, String descripcion, String pais) {
         this.idCelebracion = idCelebracion;
         this.fecha = fecha;
@@ -40,9 +40,13 @@ public class Celebracion {
     public void setPais(String pais) {
         this.pais = pais;
     }
-    
+
     // Metodos get
     public int getIdCelebracion() {
+        return idCelebracion;
+    }
+
+    public int getId() {
         return idCelebracion;
     }
 
@@ -57,5 +61,5 @@ public class Celebracion {
     public String getPais() {
         return pais;
     }
-    
+
 }

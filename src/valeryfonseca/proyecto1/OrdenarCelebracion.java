@@ -11,20 +11,25 @@ package valeryfonseca.proyecto1;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 public class OrdenarCelebracion extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(OrdenarCelebracion.class.getName());
 
     /**
      * Creates new form OrdenarCelebracion
      */
     ControlCelebraciones control;
+    ArrayList<Celebracion> copiaCelebraciones;
+
     public OrdenarCelebracion(ControlCelebraciones control) {
         initComponents();
         this.control = control;
+        this.copiaCelebraciones = new ArrayList<>(this.control.getLista());
         actualizarTabla();
     }
-    
+
     private void actualizarTabla() {
         String[] columnas = {"ID", "País", "Fecha", "Descripción"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
@@ -34,7 +39,7 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
             }
         };
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Iterator<Celebracion> it = this.control.getLista().iterator();
+        Iterator<Celebracion> it = this.copiaCelebraciones.iterator();
         while (it.hasNext()) {
             Celebracion c = it.next();
             Object[] fila = new Object[]{
@@ -47,6 +52,7 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
         }
         tablaCelebraciones.setModel(modelo);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -214,10 +220,14 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnMergeSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMergeSortActionPerformed
         // TODO add your handling code here:
+        ArrayList<Celebracion> lista = this.copiaCelebraciones;
+        control.mergeSortDesc(lista, 0, lista.size() - 1);
+        actualizarTabla();
     }//GEN-LAST:event_jBtnMergeSortActionPerformed
 
     private void jBtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCerrarActionPerformed
@@ -227,7 +237,8 @@ public class OrdenarCelebracion extends javax.swing.JFrame {
 
     private void jBtnInsercionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInsercionActionPerformed
         // TODO add your handling code here:
-        control.algoritmoInsercion(control.getLista());
+        ArrayList<Celebracion> lista = this.copiaCelebraciones;
+        control.algoritmoInsercion(lista);
         actualizarTabla();
     }//GEN-LAST:event_jBtnInsercionActionPerformed
 

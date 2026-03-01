@@ -101,66 +101,73 @@ public class ControlCelebraciones {
         return a.getFecha().compareTo(b.getFecha()); // Si los países son iguales, comparar por fecha
     }
 
-    // 
-    public ArrayList<Celebracion> mergeSortDesc(ArrayList<Celebracion> lista) {
-
-        if (lista.size() <= 1) {
-            return lista;
+    public void mergeSortDesc(ArrayList<Celebracion> lista, int izquierda, int derecha) {
+        if (izquierda < derecha) {
+            int medio = (izquierda + derecha) / 2;
+            mergeSortDesc(lista, izquierda, medio);
+            mergeSortDesc(lista, medio + 1, derecha);
+            mergeDesc(lista, izquierda, medio, derecha);
         }
-
-        int mitad = lista.size() / 2;
-
-        ArrayList<Celebracion> izquierda = new ArrayList<>(lista.subList(0, mitad));
-        ArrayList<Celebracion> derecha = new ArrayList<>(lista.subList(mitad, lista.size()));
-
-        izquierda = mergeSortDesc(izquierda);
-        derecha = mergeSortDesc(derecha);
-
-        return mergeDesc(izquierda, derecha);
     }
 
-    private ArrayList<Celebracion> mergeDesc(
-            ArrayList<Celebracion> izq,
-            ArrayList<Celebracion> der) {
+    private void mergeDesc(ArrayList<Celebracion> lista, int izquierda, int medio, int derecha) {
+        ArrayList<Celebracion> temp = new ArrayList<>(lista); // copia temporal
+        int i = izquierda;
+        int j = medio + 1;
+        int k = izquierda;
 
-        ArrayList<Celebracion> resultado = new ArrayList<>();
-
-        int i = 0, j = 0;
-
-        while (i < izq.size() && j < der.size()) {
-
-            Celebracion a = izq.get(i);
-            Celebracion b = der.get(j);
-
-            if (compararDesc(a, b) > 0) {
-                resultado.add(a);
+        while (i <= medio && j <= derecha) {
+            // Descendente: País Z→A, luego Fecha más reciente primero
+            if (compararDesc(temp.get(i), temp.get(j)) <= 0) {
+                lista.set(k, temp.get(i));
                 i++;
             } else {
-                resultado.add(b);
+                lista.set(k, temp.get(j));
                 j++;
             }
+            k++;
         }
 
-        while (i < izq.size()) {
-            resultado.add(izq.get(i++));
+        while (i <= medio) {
+            lista.set(k, temp.get(i));
+            i++;
+            k++;
         }
 
-        while (j < der.size()) {
-            resultado.add(der.get(j++));
+        while (j <= derecha) {
+            lista.set(k, temp.get(j));
+            j++;
+            k++;
         }
-
-        return resultado;
     }
 
     private int compararDesc(Celebracion a, Celebracion b) {
-
-        // 1️⃣ País (Z → A)
+        // País Z → A
         int compPais = b.getPais().compareToIgnoreCase(a.getPais());
         if (compPais != 0) {
             return compPais;
         }
-
-        // 2️⃣ Fecha (más reciente primero)
+        // Fecha más reciente primero
         return b.getFecha().compareTo(a.getFecha());
+    }
+
+    public ArrayList<Celebracion> buscarCelebracionesPorPais(String pais) {
+        ArrayList<Celebracion> resultados = new ArrayList<>();
+        for (Celebracion c : lista) {
+            if (c.getPais().toLowerCase().contains(pais.toLowerCase())) {
+                resultados.add(c);
+            }
+        }
+        return resultados;
+    }
+
+    public boolean actualizarCelebracion(Celebracion celebracion) {
+        for (int i = 0; i < lista.size(); i++) {
+            if (lista.get(i).getId() == celebracion.getId()) {
+                lista.set(i, celebracion);
+                return true;
+            }
+        }
+        return false;
     }
 }

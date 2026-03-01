@@ -3,20 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package valeryfonseca.proyecto1;
+
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+
 /**
  *
  * @author Valery
  */
 public class PaisesInvertidosForm extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PaisesInvertidosForm.class.getName());
 
     /**
      * Creates new form PaisesInvertir
      */
     ControlCelebraciones control;
+
     public PaisesInvertidosForm(ControlCelebraciones control) {
         this.control = control;
         initComponents();
@@ -153,6 +156,7 @@ public class PaisesInvertidosForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

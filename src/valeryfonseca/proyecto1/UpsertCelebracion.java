@@ -12,20 +12,37 @@ import javax.swing.JOptionPane;
  * @author Valery
  */
 import java.awt.Color;
-public class NuevaCelebracion extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(NuevaCelebracion.class.getName());
+public class UpsertCelebracion extends javax.swing.JFrame {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UpsertCelebracion.class.getName());
 
     /**
-     * Creates new form NuevaCelebracion
+     * Creates new form UpsertCelebracion
      */
     ControlCelebraciones control;
     private int idCelebracion;
-    public NuevaCelebracion(ControlCelebraciones control) {
+    private char accionRealizar = 'a'; // a = agregar, e = editar
+
+    public UpsertCelebracion(ControlCelebraciones control, Celebracion celebracion) {
         this.control = control;
         initComponents();
         jPanelMensaje.setVisible(false);
-        this.idCelebracion = control.reserveId();
+        if (celebracion != null) {
+            this.idCelebracion = celebracion.getId();
+            this.accionRealizar = 'e';
+            id.setText(String.valueOf(this.idCelebracion));
+            pais.setText(celebracion.getPais());
+            fecha.setDate(celebracion.getFecha());
+            jareaDescripcion.setText(celebracion.getDescripcion());
+            jLabelTitle.setText("Editar celebración");
+            this.setTitle("Editar Celebración");
+
+        } else {
+            jLabelTitle.setText("Agregar celebración");
+            this.setTitle("Agregar Celebración");
+            this.idCelebracion = control.reserveId();
+        }
         id.setText(String.valueOf(this.idCelebracion));
     }
 
@@ -49,7 +66,7 @@ public class NuevaCelebracion extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jareaDescripcion = new javax.swing.JTextArea();
         fecha = new com.toedter.calendar.JDateChooser();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         jBtnCerrar = new javax.swing.JButton();
         jPanelMensaje = new javax.swing.JPanel();
@@ -128,9 +145,9 @@ public class NuevaCelebracion extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 81, 625, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("Agregar celebración");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 183, -1));
+        jLabelTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabelTitle.setText("Agregar celebración");
+        getContentPane().add(jLabelTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 183, -1));
 
         btnGuardar.setBackground(new java.awt.Color(0, 204, 0));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -198,7 +215,7 @@ public class NuevaCelebracion extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
-            
+
             int idVal = Integer.parseInt(id.getText());
             Date nuevaFecha = fecha.getDate();
             String descripcion = jareaDescripcion.getText();
@@ -209,19 +226,23 @@ public class NuevaCelebracion extends javax.swing.JFrame {
                 jMensaje.setText(validacion);
                 jMensaje.setForeground(Color.RED);
                 jPanelMensaje.setVisible(true);
-            }
-            else {
-                control.addCelebracion(nueva);
-                jMensaje.setText("Celebración agregada exitosamente");
+            } else {
+                if (this.accionRealizar == 'e') {
+                    control.actualizarCelebracion(nueva);
+                    jMensaje.setText("Celebración editada exitosamente");
+                } else {
+                    control.addCelebracion(nueva);
+                    jMensaje.setText("Celebración agregada exitosamente");
+                    this.idCelebracion = control.reserveId();
+                    id.setText(String.valueOf(this.idCelebracion));
+                    pais.setText("");
+                    fecha.setDate(null);
+                    jareaDescripcion.setText("");
+                }
                 jPanelMensaje.setVisible(true);
                 jMensaje.setForeground(Color.GREEN);
-                this.idCelebracion = control.reserveId();
-                id.setText(String.valueOf(this.idCelebracion));
-                pais.setText("");
-                fecha.setDate(null);
-                jareaDescripcion.setText("");
             }
-           
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
@@ -250,7 +271,7 @@ public class NuevaCelebracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelTitle;
     public javax.swing.JLabel jMensaje;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelMensaje;
